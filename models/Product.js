@@ -37,6 +37,7 @@ Product.init(
         key: 'id',
       },
     },
+    // Remove tag_id from here if it's not used directly
   },
   {
     sequelize,

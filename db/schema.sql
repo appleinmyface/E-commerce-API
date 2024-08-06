@@ -29,10 +29,10 @@ CREATE TABLE tags (
     tag_name VARCHAR(30)
 );
 
-CREATE TABLE product_tags (
-    id SERIAL PRIMARY KEY,
-    product_id INT,
-    tag_id INT,
+CREATE TABLE product_tag (
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER REFERENCES product(id),
+  tag_id INTEGER REFERENCES tag(id)
     FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE,
     FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE
 );
