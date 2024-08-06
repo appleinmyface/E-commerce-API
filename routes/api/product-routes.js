@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product, Category, Tag, ProductTag } = require('../../models');
+const { Product, Category, Tag } = require('../../models');
 
 // The `/api/products` endpoint
 
@@ -38,11 +38,13 @@ router.post('/', async (req, res) => {
   try {
     const product = await Product.create(req.body);
 
-    if (req.body.tagIds.length) {
-      const productTagIdArr = req.body.tagIds.map((tag_id) => ({
-        product_id: product.id,
-        tag_id,
-      }));
+    if (req.body.tagIds && req.body.tagIds.length) {
+      const productTagIdArr = req.body.tagIds.map((tag_id) => {
+        return {
+          product_id: product.id,
+          tag_id,
+        };
+      });
       await ProductTag.bulkCreate(productTagIdArr);
     }
 
@@ -69,10 +71,12 @@ router.put('/:id', async (req, res) => {
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       const newProductTags = req.body.tagIds
         .filter((tag_id) => !productTagIds.includes(tag_id))
-        .map((tag_id) => ({
-          product_id: req.params.id,
-          tag_id,
-        }));
+        .map((tag_id) => {
+          return {
+            product_id: req.params.id,
+            tag_id,
+          };
+        });
 
       const productTagsToRemove = productTags
         .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
