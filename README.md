@@ -18,10 +18,8 @@ The E-Commerce API is a RESTful web service built using Node.js, Express, and Po
   - [Products](#products)
   - [Categories](#categories)
   - [Tags](#tags)
-  - [Orders](#orders)
-- [Testing](#testing)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
